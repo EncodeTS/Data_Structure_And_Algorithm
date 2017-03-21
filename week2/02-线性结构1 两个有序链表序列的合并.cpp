@@ -10,32 +10,32 @@ struct Node {
 typedef PtrToNode List;
 
 List Read() {
-    // Ԫ������
+    // 元素数量
     int num;
     scanf("%d", &num);
-    // �����µ�ͷ���
+    // 建立新的头结点
     List front = (List)malloc(sizeof(struct Node));
     front->Next = NULL;
-    // ����ָ�������Ч�ڵ��ָ�룬����ʱʹ��
+    // 建立指向最后有效节点的指针，遍历时使用
     PtrToNode last = front;
 
-    // ����Ԫ��
+    // 读入元素
     for (int i = 0; i < num; i++) {
-        // �½��ڵ㣬ע�����½ڵ�nextָ���
+        // 新建节点，注意让新节点next指向空
         PtrToNode node = (PtrToNode)malloc(sizeof(struct Node));
         node->Next = NULL;
         scanf("%d", &node->Data);
         last->Next = node;
         last = node;
     }
-    // ����ͷ���
+    // 返回头结点
     return front;
 }
 
 void Print(List L) {
-    // ָ���һ��Ԫ��
+    // 指向第一个元素
     PtrToNode last = L->Next;
-    // �����һ��Ԫ��Ϊ�գ�ֱ�Ӵ�ӡNULL������
+    // 如果第一个元素为空，直接打印NULL并返回
     if (!last) {
         printf("NULL\n");
         return;
@@ -64,17 +64,17 @@ int main()
 List Merge(List L1, List L2)
 {
     PtrToNode p1 = L1->Next, p2 = L2->Next;
-    PtrToNode front = (List)malloc(sizeof(struct Node));  // ����ͷ���
-    PtrToNode plast = front;  // �����Ч�ڵ�
+    PtrToNode front = (List)malloc(sizeof(struct Node));  // 建立头结点
+    PtrToNode plast = front;  // 最后有效节点
 
-    // ��p1��p2����Ϊ�յ�ʱ��
+    // 当p1和p2都不为空的时候
     while (p1 && p2) {
         if (p1->Data <= p2->Data) {
-            // p1��С�������Ч�ڵ�ָ��p1
+            // p1更小，最后有效节点指向p1
             plast->Next = p1;
-            // ����plast��p1
+            // 更新plast到p1
             plast = p1;
-            // p1ָ����һԪ��
+            // p1指向下一元素
             p1 = p1->Next;
         }
         else {
@@ -84,11 +84,11 @@ List Merge(List L1, List L2)
         }
     }
 
-    // ���p1��Ϊ��
+    // 如果p1不为空
     if (p1) {
         plast->Next = p1;
     }
-    // ��֮p2��Ϊ��
+    // 反之p2不为空
     else {
         plast->Next = p2;
     }
